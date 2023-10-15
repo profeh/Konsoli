@@ -24,7 +24,7 @@ internal class RootController : Controller
     public override bool ValidateOption(string? input, out string? error)
     {
         error = null;
-        if (input is not "1" or "2")
+        if (input is not "1" and not "2")
         {
             error = "Selecione uma das opções fornecidas!";
             return false;

@@ -15,4 +15,5 @@ while (true)
         continue;
     };
     controller = controller.HandleInput(input);
+    Console.Clear();
 }

@@ -29,7 +29,7 @@ internal class HydrometerInstallationController : Controller
             return this;
             
             case State.GetZipCode:
-                if (input.Length is not 9) throw new InvalidOperationException("Input size for CEP cannot be different from 9 caracthers");
+                if (input.Length is not 8) throw new InvalidOperationException("Input size for CEP cannot be different from 9 caracthers");
                 if (input.All(char.IsDigit) is false) throw new InvalidOperationException("Invalid CEP format");
                 _zipCode = input;
                 _state = State.GetAddress;
@@ -65,7 +65,7 @@ internal class HydrometerInstallationController : Controller
                 }
             return true;
             case State.GetZipCode:
-                if (input is not string { Length: 9 })
+                if (input is not string { Length: 8 })
                 {
                     error = "Por favor, forneça o cep valido do local de instalação";
                     return false;
