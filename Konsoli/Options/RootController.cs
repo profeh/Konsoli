@@ -1,13 +1,16 @@
-﻿namespace Konsoli.Options;
+﻿using Konsoli.Options.TechnicalSupport;
+
+namespace Konsoli.Options;
 
 internal class RootController : Controller
 {
-    public string Presentation()
+    public static string Presentation()
     {
         return "Bem-vindo ao Chatbot da Saneago";
     }
-    public override Controller HandleInput(string input)
+    public override Controller HandleInput(string? input)
     {
+        if (input is "2") return new TechnicalSupportController();
         throw new NotImplementedException();
     }
     public override string PromptOptions()
@@ -18,8 +21,14 @@ internal class RootController : Controller
             2- Suporte Técnico
             """;
     }
-    public override bool ValidateOption(string input, out string? error)
+    public override bool ValidateOption(string? input, out string? error)
     {
-        throw new NotImplementedException();
+        error = null;
+        if (input is not "1" or "2")
+        {
+            error = "Selecione uma das opções fornecidas!";
+            return false;
+        }
+        return true;
     }
 }
