@@ -17,7 +17,7 @@ internal class HydrometerInstallationController : Controller
     
     public override Controller HandleInput(string? input)
     {
-        if (input is null) throw new InvalidOperationException("Input for the address cannot be null!");
+        if (input is null) throw new InvalidOperationException("Input cannot be null!");
         if (string.IsNullOrWhiteSpace(input)) throw new InvalidOperationException("The input was null, empty or a whitespace");
 
         switch (_state)
@@ -25,14 +25,14 @@ internal class HydrometerInstallationController : Controller
             case State.GetDate:
                 if (DateOnly.TryParse(input, out DateOnly result) is false) throw new InvalidDataException("Invalid date format!");
                 _date = result;
-                _state = State.GetAddress;
+                _state = State.GetZipCode;
             return this;
             
             case State.GetZipCode:
                 if (input.Length is not 9) throw new InvalidOperationException("Input size for CEP cannot be different from 9 caracthers");
                 if (input.All(char.IsDigit) is false) throw new InvalidOperationException("Invalid CEP format");
                 _zipCode = input;
-                _state = State.GetDate;
+                _state = State.GetAddress;
             return this;
                             
             case State.GetAddress:
